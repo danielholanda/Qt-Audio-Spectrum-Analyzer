@@ -1,0 +1,144 @@
+#include "fftcalc.h"
+
+//const qint16  PCMS16MaxValue     =  32767;
+//const quint16 PCMS16MaxAmplitude =  32768; // because minimum is -32768
+
+#undef CLAMP
+#define CLAMP(a,min,max) ((a) < (min) ? (min) : (a) > (max) ? (max) : (a))
+
+unsigned long upper_power_of_two(unsigned long v){
+  v--;
+  v |= v >> 1;
+  v |= v >> 2;
+  v |= v >> 4;
+  v |= v >> 8;
+  v |= v >> 16;
+  v++;
+  return v;
+}
+
+// fftcalc class is designed to perform fft calculations
+FFTCalc::FFTCalc(QObject *parent) :QThread(parent){
+  double w;
+
+  // we does not need this flag
+  // restart = false;
+
+  // window function to select a portion of input sample
+  //
+  window.resize(2*SPECSIZE);
+  complexFrame.resize(2*SPECSIZE);
+  spectrum.resize(SPECSIZE);
+  logscale.resize(SPECSIZE+1);
+  compressed = false;
+  w = 2*M_PI/SPECSIZE;
+  for(int i=0; i<2*SPECSIZE;i++){
+    window[i] = 1 - 0.85 * cos (w * i);
+  }
+}
+
+FFTCalc::~FFTCalc(){
+  mutex.lock();
+  condition.wakeOne();
+  mutex.unlock();
+  wait();
+}
+
+void FFTCalc::calc(QVector<double> &_array)
+{
+  QMutexLocker locker(&mutex);
+  if (!isRunning()) {
+    array = _array;
+    start(HighPriority);
+  }
+  else {
+    //    restart = true;
+    array = _array;
+    condition.wakeOne();
+  }
+
+}
+
+void FFTCalc::run(){
+  unsigned long bufferSize, powerOfTwoSize;
+  double w;
+  qreal amplitude;
+
+  mutex.lock();
+  bufferSize = array.size();
+  if(bufferSize < 2*SPECSIZE){
+    mutex.unlock();
+    return;
+  }
+
+  intervals = bufferSize/(2*SPECSIZE);
+  qDebug() << intervals;
+  array.resize(2*SPECSIZE);
+  powerOfTwoSize = bufferSize = 2*SPECSIZE;
+  powerOfTwoSize = upper_power_of_two(bufferSize);
+  complexFrame.resize(bufferSize);//powerOfTwoSize);
+  window.resize(bufferSize);//powerOfTwoSize);
+  w = M_PI/bufferSize;
+  for(uint i=0; i<powerOfTwoSize;i++){
+    window[i] = 1 - 0.85 * cos (w * i);
+  }
+  for(uint i=0; i<bufferSize; i++){
+    complexFrame[i] = Complex(window[i]*array[i]);
+  }
+  for(uint i=bufferSize; i<powerOfTwoSize; i++){
+    complexFrame[i] = Complex(0);
+  }
+  fft(complexFrame);
+  //qDebug() << bufferSize;
+  for(uint i=0; i<bufferSize;i++){
+    qreal SpectrumAnalyserMultiplier = 1e-3;
+    amplitude = SpectrumAnalyserMultiplier*std::abs(log(complexFrame[i]));
+    amplitude = qMax(qreal(0.0), amplitude);
+    amplitude = qMin(qreal(1.0), amplitude);
+    complexFrame[i] = amplitude;
+  }
+
+  if(compressed){
+    for(int i=0; i<=SPECSIZE; i++){
+      logscale[i] = powf (bufferSize/2, (float) i / SPECSIZE) - 0.5f;
+    }
+
+    for (int i = 0; i <SPECSIZE; i ++){
+      /* sum up values in freq array between logscale[i] and logscale[i + 1],
+         including fractional parts */
+      int a = ceilf (logscale[i]);
+      int b = floorf (logscale[i+1]);
+      float sum = 0;
+
+      if (b < a)
+        sum += complexFrame[b].real()*(logscale[i+1]-logscale[i]);
+      else{
+        if (a > 0)
+          sum += complexFrame[a-1].real()*(a-logscale[i]);
+        for (; a < b; a++)
+          sum += complexFrame[a].real();
+        if (b < SPECSIZE)
+          sum += complexFrame[b].real()*(logscale[i+1] - b);
+      }
+
+      /* fudge factor to make the graph have the same overall height as a
+         12-band one no matter how many bands there are */
+      sum *= (float) SPECSIZE/ 12;
+
+      /* convert to dB */
+      float val = 20 * log10f (sum);
+
+      /* scale (-DB_RANGE, 0.0) to (0.0, 1.0) */
+      val = 1 + val / 20;
+
+      spectrum[i] = CLAMP (val, 0, 1);
+    }
+  }
+  else{
+    for(int i=0; i<SPECSIZE; i++){
+      spectrum[i] = complexFrame[i].real()*10;
+    }
+  }
+  emit calculatedSpectrum(spectrum);
+  mutex.unlock();
+}

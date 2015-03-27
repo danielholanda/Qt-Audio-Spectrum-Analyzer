@@ -1,0 +1,87 @@
+\hypertarget{class_spectrograph}{\section{Spectrograph Class Reference}
+\label{class_spectrograph}\index{Spectrograph@{Spectrograph}}
+}
+
+
+Inheritance diagram for Spectrograph\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{class_spectrograph__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Spectrograph\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{class_spectrograph__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_spectrograph_a22138fa296829fb5449202f262e64bf5}{paint\-Event} (Q\-Paint\-Event $\ast$e)
+\item 
+void \hyperlink{class_spectrograph_ae94e6b07459f40c57ed7db97f5d32cf1}{load\-Samples} (Q\-Vector$<$ double $>$ \&\-\_\-spectrum)
+\item 
+void \hyperlink{class_spectrograph_af690851ad862181732979bdfa88b2dbe}{timer\-Event} (Q\-Timer\-Event $\ast$e)
+\item 
+void \hyperlink{class_spectrograph_a06514c3f632bc47c7da2cfd66330e85e}{resize\-Event} (Q\-Resize\-Event $\ast$e)
+\item 
+void \hyperlink{class_spectrograph_aeb2d9200c513b1de462de5f16c4cb0ca}{load\-Levels} (double left, double right)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_spectrograph_ae4a10124a7de6cec48ccd09db0ab5fb6}{{\bfseries Spectrograph} (Q\-Widget $\ast$parent=0)}\label{class_spectrograph_ae4a10124a7de6cec48ccd09db0ab5fb6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_spectrograph_aeb2d9200c513b1de462de5f16c4cb0ca}{\index{Spectrograph@{Spectrograph}!load\-Levels@{load\-Levels}}
+\index{load\-Levels@{load\-Levels}!Spectrograph@{Spectrograph}}
+\subsubsection[{load\-Levels}]{\setlength{\rightskip}{0pt plus 5cm}void Spectrograph\-::load\-Levels (
+\begin{DoxyParamCaption}
+\item[{double}]{left, }
+\item[{double}]{right}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{class_spectrograph_aeb2d9200c513b1de462de5f16c4cb0ca}
+brief Loads left and right mean audio values \hypertarget{class_spectrograph_ae94e6b07459f40c57ed7db97f5d32cf1}{\index{Spectrograph@{Spectrograph}!load\-Samples@{load\-Samples}}
+\index{load\-Samples@{load\-Samples}!Spectrograph@{Spectrograph}}
+\subsubsection[{load\-Samples}]{\setlength{\rightskip}{0pt plus 5cm}void Spectrograph\-::load\-Samples (
+\begin{DoxyParamCaption}
+\item[{Q\-Vector$<$ double $>$ \&}]{\-\_\-spectrum}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{class_spectrograph_ae94e6b07459f40c57ed7db97f5d32cf1}
+brief Load samples to be displayed \hypertarget{class_spectrograph_a22138fa296829fb5449202f262e64bf5}{\index{Spectrograph@{Spectrograph}!paint\-Event@{paint\-Event}}
+\index{paint\-Event@{paint\-Event}!Spectrograph@{Spectrograph}}
+\subsubsection[{paint\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void Spectrograph\-::paint\-Event (
+\begin{DoxyParamCaption}
+\item[{Q\-Paint\-Event $\ast$}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{class_spectrograph_a22138fa296829fb5449202f262e64bf5}
+brief Paints the screen for spectrum displaing \hypertarget{class_spectrograph_a06514c3f632bc47c7da2cfd66330e85e}{\index{Spectrograph@{Spectrograph}!resize\-Event@{resize\-Event}}
+\index{resize\-Event@{resize\-Event}!Spectrograph@{Spectrograph}}
+\subsubsection[{resize\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void Spectrograph\-::resize\-Event (
+\begin{DoxyParamCaption}
+\item[{Q\-Resize\-Event $\ast$}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{class_spectrograph_a06514c3f632bc47c7da2cfd66330e85e}
+brief Redefines some variables when the widget is resized \hypertarget{class_spectrograph_af690851ad862181732979bdfa88b2dbe}{\index{Spectrograph@{Spectrograph}!timer\-Event@{timer\-Event}}
+\index{timer\-Event@{timer\-Event}!Spectrograph@{Spectrograph}}
+\subsubsection[{timer\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void Spectrograph\-::timer\-Event (
+\begin{DoxyParamCaption}
+\item[{Q\-Timer\-Event $\ast$}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{class_spectrograph_af690851ad862181732979bdfa88b2dbe}
+brief Used to modify spectrum while a new sample does not arrive 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+spectrograph.\-h\item 
+spectrograph.\-cpp\end{DoxyCompactItemize}

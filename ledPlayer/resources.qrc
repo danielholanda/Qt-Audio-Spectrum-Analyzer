@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>next.png</file>
+        <file>playPause.png</file>
+        <file>prev.png</file>
+        <file>img/botao_azul.png</file>
+        <file>img/botao_branco.png</file>
+        <file>img/button-get-it-on-google-play.png</file>
+    </qresource>
+</RCC>
