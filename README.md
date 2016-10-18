@@ -4,8 +4,8 @@ A simple spectrum analyser with beat detection integrated with four Adafruit min
 
 ## Demo
 
-[![Demo Doccou alpha](https://github.com/danielholanda/Qt-Audio-Spectrum-Analyzer/tree/master/Media/demo1.gif)](https://www.youtube.com/watch?v=x4nMBxEmUvA)
-[![Demo Doccou alpha](https://github.com/danielholanda/Qt-Audio-Spectrum-Analyzer/tree/master/Media/demo2.gif)](https://www.youtube.com/watch?v=x4nMBxEmUvA)
+[![Demo Doccou alpha](https://github.com/danielholanda/Qt-Audio-Spectrum-Analyzer/blob/master/Media/demo1.gif?raw=true)](https://www.youtube.com/watch?v=x4nMBxEmUvA)
+[![Demo Doccou alpha](https://github.com/danielholanda/Qt-Audio-Spectrum-Analyzer/blob/master/Media/demo2.gif?raw=true)](https://www.youtube.com/watch?v=x4nMBxEmUvA)
 
 ## Bug Reports & Feature Requests
 
