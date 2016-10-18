@@ -24,4 +24,4 @@ All pull requests are welcome !
 
 ## License
 
-CountPages uses the MIT license. See [LICENSE](https://github.com/danielholanda/Qt-Audio-Spectrum-Analyzer/blob/master/LICENSE) for more details.
+This project uses the MIT license. See [LICENSE](https://github.com/danielholanda/Qt-Audio-Spectrum-Analyzer/blob/master/LICENSE) for more details.
